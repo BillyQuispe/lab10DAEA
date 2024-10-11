@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  gym-db:
+    image: ${dockerId}/bd
+    networks:
+      - gym-net
+
+  gym-app:
+    image: ${dockerId}/node
+    networks:
+      - gym-net
+
+  gym-proxy:
+    image: ${dockerId}/proxy
+    ports:
+      - "80:80"
+    networks:
+      - gym-net
+    deploy:
+      mode: replicated
+      replicas: 3
+
+networks:
+  gym-net:

@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  gym-db:
+    image: ${dockerId}/bd
+     build:
+      context: ./bd
+    networks:
+      - gym-net
+
+  gym-app:
+    image: ${dockerId}/node
+    build:
+      context: ./node
+    depends_on:
+      - gym-db
+    restart: on-failure
+    networks:
+      - gym-net
+
+  gym-proxy:
+    image: ${dockerId}/proxy
+    build:
+      context: ./proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - gym-app
+    networks:
+      - gym-net
+
+networks:
+  gym-net:
