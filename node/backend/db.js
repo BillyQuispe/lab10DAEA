@@ -1,7 +1,7 @@
-var Sequelize = require('sequelize');
+const { Sequelize } = require('sequelize');
 var username = 'sa';
-var password = 'DockerCon!!!';
-var host = 'gym-db';
+var password = 'SQL#1234'; // Asegúrate de que coincida con tu contraseña
+var host = 'sql-server'; // Nombre del servicio en el swarm
 var dbName = 'GymStudents';
 
 var sequelize = new Sequelize(dbName, username, password, {
@@ -33,4 +33,4 @@ var Student = sequelize.define('student', {
 
 Student.sync();
 
-exports.Students = Student;
+module.exports = { Students: Student };
